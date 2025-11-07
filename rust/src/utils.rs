@@ -22,6 +22,11 @@ pub fn read_blocks(file: PathBuf) -> io::Result<Vec<String>> {
     Ok(text.split("\n\n").map(|s| s.to_string()).collect())
 }
 
+pub fn read_lines(file: PathBuf) -> io::Result<Vec<String>> {
+    let text = read_text(file)?;
+    Ok(text.lines().map(|s| s.to_string()).collect())
+}
+
 pub trait Solution {
     type Output;
     fn get_test(file: PathBuf) -> Self::Output;
@@ -29,7 +34,7 @@ pub trait Solution {
     fn part2() -> String;
     fn part3() -> String;
     fn run() {
-        println!("{}:", type_name::<Self>());
+        println!("{}:", type_name::<Self>().rsplit("::").next().unwrap());
         println!("\tPart 1: {}", Self::part1());
         println!("\tPart 2: {}", Self::part2());
         println!("\tPart 3: {}", Self::part3());
