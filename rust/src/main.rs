@@ -1,6 +1,8 @@
-use rust::{day_1::day1, day_2::day2};
+use rust::day_1::Day1;
+use rust::day_2::Day2;
+use rust::utils::Solution;
 
 fn main() {
-    day1();
-    day2();
+    Day1::run();
+    Day2::run();
 }

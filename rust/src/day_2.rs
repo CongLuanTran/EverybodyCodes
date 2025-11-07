@@ -4,7 +4,7 @@ use std::{
     path::PathBuf,
 };
 
-use crate::utils::{read_text, test};
+use crate::utils::{Solution, read_text, test};
 
 #[derive(Clone, Copy)]
 struct ComplexNumber(i64, i64);
@@ -60,29 +60,7 @@ impl DivAssign for ComplexNumber {
     }
 }
 
-fn get_test(file: PathBuf) -> (i64, i64) {
-    let s = read_text(file).unwrap();
-    let mut it = s
-        .trim_start_matches("A=[")
-        .trim_end_matches("]")
-        .split(",")
-        .map(|c| c.parse::<i64>().unwrap());
-    (it.next().unwrap(), it.next().unwrap())
-}
-
-fn part1() {
-    let (x, y) = get_test(test(2, 1));
-    let a = ComplexNumber(x, y);
-    let mut r = ComplexNumber(0, 0);
-    let div = ComplexNumber(10, 10);
-    for _ in 0..3 {
-        r *= r;
-        r /= div;
-        r += a;
-    }
-
-    println!("\tPart 1: {}", r);
-}
+pub struct Day2;
 
 fn check(x: ComplexNumber) -> bool {
     let mut r = ComplexNumber(0, 0);
@@ -98,39 +76,59 @@ fn check(x: ComplexNumber) -> bool {
     true
 }
 
-fn part2() {
-    let (x, y) = get_test(test(2, 2));
-
-    let mut count = 0;
-    for i in 0..101 {
-        for j in 0..101 {
-            if check(ComplexNumber(x + 10 * i, y + 10 * j)) {
-                count += 1;
-            }
-        }
+impl Solution for Day2 {
+    type Output = (i64, i64);
+    fn get_test(file: PathBuf) -> (i64, i64) {
+        let s = read_text(file).unwrap();
+        let mut it = s
+            .trim_start_matches("A=[")
+            .trim_end_matches("]")
+            .split(",")
+            .map(|c| c.parse::<i64>().unwrap());
+        (it.next().unwrap(), it.next().unwrap())
     }
 
-    println!("\tPart2: {}", count);
-}
-
-fn part3() {
-    let (x, y) = get_test(test(2, 2));
-
-    let mut count = 0;
-    for i in 0..1001 {
-        for j in 0..1001 {
-            if check(ComplexNumber(x + i, y + j)) {
-                count += 1;
-            }
+    fn part1() -> String {
+        let (x, y) = Self::get_test(test(2, 1));
+        let a = ComplexNumber(x, y);
+        let mut r = ComplexNumber(0, 0);
+        let div = ComplexNumber(10, 10);
+        for _ in 0..3 {
+            r *= r;
+            r /= div;
+            r += a;
         }
+
+        r.to_string()
     }
 
-    println!("\tPart3: {}", count);
-}
+    fn part2() -> String {
+        let (x, y) = Self::get_test(test(2, 2));
 
-pub fn day2() {
-    println!("Day 2:");
-    part1();
-    part2();
-    part3();
+        let mut count = 0;
+        for i in 0..101 {
+            for j in 0..101 {
+                if check(ComplexNumber(x + 10 * i, y + 10 * j)) {
+                    count += 1;
+                }
+            }
+        }
+
+        count.to_string()
+    }
+
+    fn part3() -> String {
+        let (x, y) = Self::get_test(test(2, 2));
+
+        let mut count = 0;
+        for i in 0..1001 {
+            for j in 0..1001 {
+                if check(ComplexNumber(x + i, y + j)) {
+                    count += 1;
+                }
+            }
+        }
+
+        count.to_string()
+    }
 }
