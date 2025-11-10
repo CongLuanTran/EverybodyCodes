@@ -1,97 +1,60 @@
-from typing import Self
-
-from utils import read_text, test
-
-# TIL: Python int division round toward negative infinity, not zero
-
-
-class ComplexNumber:
-    def __init__(self, x: int, y: int):
-        self.x = x
-        self.y = y
-
-    def __add__(self, other: Self):
-        return ComplexNumber(self.x + other.x, self.y + other.y)
-
-    def __mul__(self, other: Self):
-        return ComplexNumber(
-            self.x * other.x - self.y * other.y,
-            self.x * other.y + self.y * other.x,
-        )
-
-    def __truediv__(self, other: Self):
-        return ComplexNumber(int(self.x / other.x), int(self.y / other.y))
-
-    def __repr__(self) -> str:
-        return f"[{self.x},{self.y}]"
-
-    @classmethod
-    def unwrap(cls, expr: str) -> Self:
-        x, y = expr.removeprefix("[").removesuffix("]").split(",")
-        return cls(int(x), int(y))
+from utils import Solution, read_text, test
 
 
 def get_test(filename):
-    return ComplexNumber.unwrap(read_text(filename).split("=")[1])
+    data = read_text(filename)
+    x, y = data[3:-1].split(",")
+    return complex(int(x), int(y))
 
 
-def part1():
-    a = get_test(test(2, 1))
-    res = ComplexNumber(0, 0)
-
-    for _ in range(3):
-        res *= res
-        res /= ComplexNumber(10, 10)
-        res += a
-
-    print("\tPart 1:", res)
-
-
-def check_valid(P) -> bool:
-    res = ComplexNumber(0, 0)
+def check_valid(P: complex) -> bool:
+    res = 0 + 0j
     for _ in range(100):
         res *= res
-        res /= ComplexNumber(100000, 100000)
+        res = complex(int(res.real / 100000), int(res.imag / 100000))
         res += P
-        if abs(res.x) > 1_000_000 or abs(res.y) > 1_000_000:
+        if abs(res.real) > 1_000_000 or abs(res.imag) > 1_000_000:
             return False
     return True
 
 
-def part2():
-    a = get_test(test(2, 2))
+class Day2(Solution):
+    @staticmethod
+    def part1():
+        a = get_test(test(2, 1))
+        res = 0 + 0j
 
-    cnt = 0
-    inputs = [
-        ComplexNumber(i, j)
-        for i in range(a.x, a.x + 1001, 10)
-        for j in range(a.y, a.y + 1001, 10)
-    ]
+        for _ in range(3):
+            res *= res
+            res = complex(int(res.real / 10), int(res.imag / 10))
+            res += a
 
-    cnt = sum(map(check_valid, inputs))
-    print("\tPart 2:", cnt)
+        print("\tPart 1:", res)
 
+    @staticmethod
+    def part2():
+        a = get_test(test(2, 2))
 
-def part3():
-    a = get_test(test(2, 2))
+        inputs = [
+            complex(i, j)
+            for i in range(int(a.real), int(a.real) + 1001, 10)
+            for j in range(int(a.imag), int(a.imag) + 1001, 10)
+        ]
 
-    cnt = 0
-    inputs = [
-        ComplexNumber(i, j)
-        for i in range(a.x, a.x + 1001)
-        for j in range(a.y, a.y + 1001)
-    ]
+        return sum(map(check_valid, inputs))
 
-    cnt = sum(map(check_valid, inputs))
-    print("\tPart 3:", cnt)
+    @staticmethod
+    def part3():
+        a = get_test(test(2, 2))
 
+        inputs = [
+            complex(i, j)
+            for i in range(int(a.real), int(a.real) + 1001)
+            for j in range(int(a.imag), int(a.imag) + 1001)
+        ]
 
-def day2():
-    print("Day 2:")
-    part1()
-    part2()
-    part3()
+        return sum(map(check_valid, inputs))
 
 
 if __name__ == "__main__":
-    day2()
+    Day2.run()
