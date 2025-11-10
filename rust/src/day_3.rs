@@ -1,20 +1,22 @@
-use std::collections::{BTreeSet, HashMap, HashSet};
-
 use crate::utils::{Solution, read_text, test};
+use std::{
+    collections::{BTreeSet, HashMap, HashSet},
+    path::PathBuf,
+};
 
 pub struct Day3;
 
-impl Solution for Day3 {
-    type Output = Vec<i32>;
-
-    fn get_test(file: std::path::PathBuf) -> Self::Output {
+impl Day3 {
+    fn get_test(file: PathBuf) -> Vec<i32> {
         read_text(file)
             .unwrap()
             .split(",")
             .map(|s| s.parse::<i32>().unwrap())
             .collect()
     }
+}
 
+impl Solution for Day3 {
     fn part1() -> String {
         let nums = Self::get_test(test(3, 1));
         nums.iter()

@@ -1,14 +1,12 @@
+use crate::utils::{Solution, read_blocks, test};
 use std::{
     cmp::{max, min},
     path::PathBuf,
 };
 
-use crate::utils::{Solution, read_blocks, test};
-
 pub struct Day1;
 
-impl Solution for Day1 {
-    type Output = (Vec<String>, Vec<String>);
+impl Day1 {
     fn get_test(file: PathBuf) -> (Vec<String>, Vec<String>) {
         let [names, moves] = read_blocks(file).unwrap().try_into().unwrap();
         (
@@ -16,6 +14,9 @@ impl Solution for Day1 {
             moves.split(",").map(|s| s.trim().to_string()).collect(),
         )
     }
+}
+
+impl Solution for Day1 {
     fn part1() -> String {
         let (names, moves) = Self::get_test(test(1, 1));
         let length = names.len() as i32 - 1;

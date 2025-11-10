@@ -28,8 +28,6 @@ pub fn read_lines(file: PathBuf) -> io::Result<Vec<String>> {
 }
 
 pub trait Solution {
-    type Output;
-    fn get_test(file: PathBuf) -> Self::Output;
     fn part1() -> String;
     fn part2() -> String;
     fn part3() -> String;

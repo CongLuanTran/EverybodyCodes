@@ -1,10 +1,9 @@
+use crate::utils::{Solution, read_text, test};
 use std::{
     fmt::Display,
     ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign},
     path::PathBuf,
 };
-
-use crate::utils::{Solution, read_text, test};
 
 #[derive(Clone, Copy)]
 struct ComplexNumber(i64, i64);
@@ -60,8 +59,6 @@ impl DivAssign for ComplexNumber {
     }
 }
 
-pub struct Day2;
-
 fn check(x: ComplexNumber) -> bool {
     let mut r = ComplexNumber(0, 0);
     let div = ComplexNumber(100000, 100000);
@@ -76,8 +73,9 @@ fn check(x: ComplexNumber) -> bool {
     true
 }
 
-impl Solution for Day2 {
-    type Output = (i64, i64);
+pub struct Day2;
+
+impl Day2 {
     fn get_test(file: PathBuf) -> (i64, i64) {
         let s = read_text(file).unwrap();
         let mut it = s
@@ -87,7 +85,9 @@ impl Solution for Day2 {
             .map(|c| c.parse::<i64>().unwrap());
         (it.next().unwrap(), it.next().unwrap())
     }
+}
 
+impl Solution for Day2 {
     fn part1() -> String {
         let (x, y) = Self::get_test(test(2, 1));
         let a = ComplexNumber(x, y);

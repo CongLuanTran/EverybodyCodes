@@ -1,14 +1,15 @@
 use crate::utils::{Solution, read_lines, test};
+use std::path::PathBuf;
 
 pub struct Day4;
 
-impl Solution for Day4 {
-    type Output = Vec<String>;
-
-    fn get_test(file: std::path::PathBuf) -> Self::Output {
+impl Day4 {
+    fn get_test(file: PathBuf) -> Vec<String> {
         read_lines(file).unwrap()
     }
+}
 
+impl Solution for Day4 {
     fn part1() -> String {
         let gears = Self::get_test(test(4, 1));
 
