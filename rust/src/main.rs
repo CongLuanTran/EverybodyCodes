@@ -2,6 +2,7 @@ use rust::day_1::Day1;
 use rust::day_2::Day2;
 use rust::day_3::Day3;
 use rust::day_4::Day4;
+use rust::day_5::Day5;
 use rust::utils::Solution;
 
 fn main() {
@@ -9,4 +10,5 @@ fn main() {
     Day2::run();
     Day3::run();
     Day4::run();
+    Day5::run();
 }
