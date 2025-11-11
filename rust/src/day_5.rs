@@ -42,7 +42,7 @@ impl Segment {
         format!(
             "{}{}{}",
             self.left.map_or(String::new(), |n| n.to_string()),
-            self.mid.to_string(),
+            self.mid,
             self.right.map_or(String::new(), |n| n.to_string())
         )
         .parse()
@@ -152,7 +152,7 @@ impl Solution for Day5 {
 
     fn part2() -> String {
         let data = Self::get_test(test(5, 2));
-        let mut worst_sword = std::u64::MAX;
+        let mut worst_sword = u64::MAX;
         let mut best_sword = 0u64;
         for line in data {
             let (_, nums) = line.split_once(":").unwrap();
