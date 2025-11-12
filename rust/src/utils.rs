@@ -31,10 +31,19 @@ pub trait Solution {
     fn part1() -> String;
     fn part2() -> String;
     fn part3() -> String;
+    fn print_part1() {
+        println!("\tPart 1: {}", Self::part1());
+    }
+    fn print_part2() {
+        println!("\tPart 2: {}", Self::part2());
+    }
+    fn print_part3() {
+        println!("\tPart 3: {}", Self::part3());
+    }
     fn run() {
         println!("{}:", type_name::<Self>().rsplit("::").next().unwrap());
-        println!("\tPart 1: {}", Self::part1());
-        println!("\tPart 2: {}", Self::part2());
-        println!("\tPart 3: {}", Self::part3());
+        Self::print_part1();
+        Self::print_part2();
+        Self::print_part3();
     }
 }
