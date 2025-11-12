@@ -1,16 +1,16 @@
-from day1 import day1
-from day2 import day2
-from day3 import day3
-from day4 import day4
-from day5 import day5
+from day1 import Day1
+from day2 import Day2
+from day3 import Day3
+from day4 import Day4
+from day5 import Day5
 
 
 def main():
-    day1()
-    day2()
-    day3()
-    day4()
-    day5()
+    Day1.run()
+    Day2.run()
+    Day3.run()
+    Day4.run()
+    Day5.run()
 
 
 if __name__ == "__main__":

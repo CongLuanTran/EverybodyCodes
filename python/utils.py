@@ -9,7 +9,7 @@ test_folder = Path("../test/")
 class Solution(ABC):
     @staticmethod
     @abstractmethod
-    def part1() -> str:
+    def part1():
         pass
 
     @staticmethod
