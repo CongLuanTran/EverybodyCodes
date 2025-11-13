@@ -1,5 +1,5 @@
-use crate::utils::{Solution, read_lines, test};
-use std::path::PathBuf;
+use crate::utils::Solution;
+use std::fmt::Display;
 
 #[derive(Debug, Clone, Copy)]
 struct Segment {
@@ -136,22 +136,17 @@ impl Spine {
 
 pub struct Day5;
 
-impl Day5 {
-    fn get_test(file: PathBuf) -> Vec<String> {
-        read_lines(file).unwrap()
-    }
-}
-
 impl Solution for Day5 {
-    fn part1() -> String {
-        let data = Self::get_test(test(5, 1));
-        let (_, nums) = data[0].split_once(":").unwrap();
+    const DAY: u32 = 5;
+    fn part1(input: &str) -> impl Display {
+        let mut data = input.lines();
+        let (_, nums) = data.next().unwrap().split_once(":").unwrap();
         let spine = Spine::from_iter(nums.split(",").map(|s| s.parse().unwrap()));
-        spine.quality().to_string()
+        spine.quality()
     }
 
-    fn part2() -> String {
-        let data = Self::get_test(test(5, 2));
+    fn part2(input: &str) -> impl Display {
+        let data = input.lines();
         let mut worst_sword = u64::MAX;
         let mut best_sword = 0u64;
         for line in data {
@@ -160,11 +155,11 @@ impl Solution for Day5 {
             worst_sword = worst_sword.min(spine.quality());
             best_sword = best_sword.max(spine.quality());
         }
-        (best_sword - worst_sword).to_string()
+        best_sword - worst_sword
     }
 
-    fn part3() -> String {
-        let data = Self::get_test(test(5, 3));
+    fn part3(input: &str) -> impl Display {
+        let data = input.lines();
         let mut swords: Vec<(Spine, u32)> = Vec::new();
         for line in data {
             let (id, nums) = line.split_once(":").unwrap();
@@ -178,6 +173,5 @@ impl Solution for Day5 {
             .enumerate()
             .map(|(i, v)| (i + 1) as u64 * v.1 as u64)
             .sum::<u64>()
-            .to_string()
     }
 }

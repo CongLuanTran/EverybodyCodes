@@ -1,49 +1,23 @@
-use std::{
-    any::type_name,
-    fs, io,
-    path::{Path, PathBuf},
-};
+use std::{fmt::Display, fs, path::Path};
 
 const BASE_NAME: &str = "everybody_codes_e2025";
 const TEST_DIR: &str = "../test/";
 
-pub fn test(day: i8, part: i8) -> PathBuf {
+pub fn test(day: u32, part: u32) -> String {
     let filename = format!("{BASE_NAME}_q{day:02}_p{part}.txt");
-    Path::new(TEST_DIR).join(filename)
-}
-
-pub fn read_text(file: PathBuf) -> io::Result<String> {
-    let text = fs::read_to_string(file)?.trim().to_string();
-    Ok(text)
-}
-
-pub fn read_blocks(file: PathBuf) -> io::Result<Vec<String>> {
-    let text = read_text(file)?;
-    Ok(text.split("\n\n").map(|s| s.to_string()).collect())
-}
-
-pub fn read_lines(file: PathBuf) -> io::Result<Vec<String>> {
-    let text = read_text(file)?;
-    Ok(text.lines().map(|s| s.to_string()).collect())
+    let path = Path::new(TEST_DIR).join(filename);
+    fs::read_to_string(path).unwrap()
 }
 
 pub trait Solution {
-    fn part1() -> String;
-    fn part2() -> String;
-    fn part3() -> String;
-    fn print_part1() {
-        println!("\tPart 1: {}", Self::part1());
-    }
-    fn print_part2() {
-        println!("\tPart 2: {}", Self::part2());
-    }
-    fn print_part3() {
-        println!("\tPart 3: {}", Self::part3());
-    }
+    const DAY: u32;
+    fn part1(note: &str) -> impl Display;
+    fn part2(note: &str) -> impl Display;
+    fn part3(note: &str) -> impl Display;
     fn run() {
-        println!("{}:", type_name::<Self>().rsplit("::").next().unwrap());
-        Self::print_part1();
-        Self::print_part2();
-        Self::print_part3();
+        println!("Day {}", Self::DAY);
+        println!("\tPart 1: {}", Self::part1(&test(Self::DAY, 1)));
+        println!("\tPart 2: {}", Self::part2(&test(Self::DAY, 2)));
+        println!("\tPart 3: {}", Self::part3(&test(Self::DAY, 3)));
     }
 }
