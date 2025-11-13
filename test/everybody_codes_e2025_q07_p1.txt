@@ -1,0 +1,17 @@
+Yndsyx,Brythsyx,Brythmirath,Bryththel,Azsyx,Yndmirath,Azmirath,Azthel,Yndthel
+
+m > i
+r > a,b
+Y > n
+e > l
+i > r
+z > m,b
+a > t
+t > h
+s > y
+h > s,m,t,e
+A > z
+B > r
+y > t,x
+n > b
+d > s,m,t

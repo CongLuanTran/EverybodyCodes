@@ -1,0 +1,31 @@
+Zyrixidris,Arvlorath,Rahfeth,Sorlorath,Soreth,Gavzris,Kharzyph,Rahzris,Zyrixzris,Gaveth,Rahzyph,Rahsin,Brythfarin,Zyrixlorath,Arvral,Thymlorath,Brythzyph,Brythsin,Soridris,Iskarfarin,Gavsin,Arveth,Zyrixral,Brytheth,Thymfeth,Iskareth,Xendfeth,Xendlorath,Rahnor,Khareth,Gavnor,Thymnor,Zyrixnor,Sorfeth,Thymral,Zyrixfeth,Gavfarin,Iskarsin,Rahidris,Brythnor,Brythral,Sorfarin,Gavfeth,Arvnor,Rahfarin,Zyrixsin,Arvzyph,Sorzyph,Sorzris,Iskarral,Xendidris,Kharlorath,Thymsin,Arvfarin,Kharral,Rahlorath,Arvsin,Sornor,Arvzris,Kharnor,Arvfeth,Sorsin,Zyrixfarin,Brythfeth,Brythzris,Arvidris,Rahral,Iskarnor,Zyrixzyph,Xendzyph,Gavzyph,Sorral,Xendzris,Zyrixeth,Gavidris,Thymzris,Raheth,Gavral,Iskarlorath,Iskarzyph,Iskarzris,Xendeth,Kharidris,Xendnor,Xendsin,Xendral,Brythidris,Thymeth,Xendfarin,Iskarfeth,Thymfarin,Thymzyph,Kharsin,Kharfeth,Kharzris,Kharfarin,Iskaridris,Brythlorath,Gavlorath,Thymidris
+
+x > f,z,r,l,i,n,e,s
+z > y,r
+A > r
+R > a
+k > a
+e > t,v
+f > e,a
+T > h
+X > e
+G > a
+r > z,i,a,f,r,l,n,e,s,v
+d > r,f,z,l,i,n,e,s
+S > o
+I > s
+a > r,v,l,t
+B > r
+o > r,v
+t > h
+p > h
+v > f,z,r,l,i,n,e,s
+h > a,f,z,r,l,i,n,e,s,v
+n > o,d
+m > f,z,r,l,i,n,e,s
+i > s,d,n,x
+Z > y
+s > i,v
+l > o
+K > h
+y > p,v,m,t
