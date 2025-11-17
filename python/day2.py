@@ -1,60 +1,69 @@
-from utils import Solution, read_text, test
+from multiprocessing import Pool
+
+from utils import file, read_text, time_taken
 
 
-def get_test(filename):
-    data = read_text(filename)
+def get_test(part: int):
+    data = read_text(file(2, part))
     x, y = data[3:-1].split(",")
-    return complex(int(x), int(y))
+    return int(x), int(y)
 
 
 def check_valid(P: complex) -> bool:
     res = 0 + 0j
     for _ in range(100):
         res *= res
-        res = complex(int(res.real / 100000), int(res.imag / 100000))
+        res = complex(int(res.real / 100_000), int(res.imag / 100_000))
         res += P
         if abs(res.real) > 1_000_000 or abs(res.imag) > 1_000_000:
             return False
     return True
 
 
-class Day2(Solution):
-    @staticmethod
-    def part1():
-        a = get_test(test(2, 1))
-        res = 0 + 0j
+def part1(x: int, y: int):
+    a = complex(x, y)
+    res = 0 + 0j
 
-        for _ in range(3):
-            res *= res
-            res = complex(int(res.real / 10), int(res.imag / 10))
-            res += a
+    for _ in range(3):
+        res *= res
+        res = complex(int(res.real / 10), int(res.imag / 10))
+        res += a
 
-        print("\tPart 1:", res)
+    return f"{int(res.real)} {int(res.imag)}"
 
-    @staticmethod
-    def part2():
-        a = get_test(test(2, 2))
 
-        inputs = [
-            complex(i, j)
-            for i in range(int(a.real), int(a.real) + 1001, 10)
-            for j in range(int(a.imag), int(a.imag) + 1001, 10)
-        ]
+def part2(x: int, y: int):
+    a = complex(x, y)
 
-        return sum(map(check_valid, inputs))
+    inputs = [
+        complex(a.real + i, a.imag + j)
+        for i in range(0, 1001, 10)
+        for j in range(0, 1001, 10)
+    ]
 
-    @staticmethod
-    def part3():
-        a = get_test(test(2, 2))
+    return sum(map(check_valid, inputs))
 
-        inputs = [
-            complex(i, j)
-            for i in range(int(a.real), int(a.real) + 1001)
-            for j in range(int(a.imag), int(a.imag) + 1001)
-        ]
 
-        return sum(map(check_valid, inputs))
+def part3(x: int, y: int):
+    a = complex(x, y)
+
+    inputs = [
+        complex(a.real + i, a.imag + j)
+        for i in range(0, 1001)
+        for j in range(0, 1001)
+    ]
+
+    pool = Pool()
+    ans = pool.map(check_valid, inputs)
+    pool.close()
+
+    return sum(ans)
 
 
 if __name__ == "__main__":
-    Day2.run()
+    print("Part 1:")
+    time_taken(lambda: part1(*get_test(1)))
+    print("Part 2:")
+    time_taken(lambda: part2(*get_test(2)))
+    print("Part 3:")
+    time_taken(lambda: part3(*get_test(3)))

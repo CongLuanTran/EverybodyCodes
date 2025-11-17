@@ -1,16 +1,13 @@
-from day1 import Day1
-from day2 import Day2
-from day3 import Day3
-from day4 import Day4
-from day5 import Day5
+import os
+import subprocess
+import sys
 
 
 def main():
-    Day1.run()
-    Day2.run()
-    Day3.run()
-    Day4.run()
-    Day5.run()
+    for filename in os.listdir("."):
+        if filename.startswith("day") and filename.endswith(".py"):
+            print(f"====== Running {filename} ======")
+            subprocess.run([sys.executable, filename])
 
 
 if __name__ == "__main__":

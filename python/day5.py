@@ -1,6 +1,6 @@
 from functools import total_ordering
 
-from utils import Solution, read_lines, test
+from utils import read_lines, file, time_taken
 
 
 @total_ordering
@@ -73,52 +73,50 @@ class Spine:
         return False
 
 
-def get_item(filename):
-    return read_lines(filename)
+def get_test(part):
+    return read_lines(file(5, part))
 
 
-class Day5(Solution):
-    @staticmethod
-    def part1():
-        data = get_item(test(5, 1))
-        _, nums = data[0].split(":")
-        nums = list(map(int, nums.split(",")))
-        spine = Spine.from_list(nums)
+def part1(note: list[str]):
+    _, nums = note[0].split(":")
+    nums = list(map(int, nums.split(",")))
+    spine = Spine.from_list(nums)
 
-        return spine.quality()
+    return spine.quality()
 
-    @staticmethod
-    def part2():
-        data = get_item(test(5, 2))
-        swords = []
-        for line in data:
-            _, nums = line.split(":")
-            swords.append(
-                Spine.from_list(list(map(int, nums.split(",")))).quality()
-            )
 
-        best_sword = max(swords)
-        worst_sword = min(swords)
+def part2(note: list[str]):
+    swords = []
+    for line in note:
+        _, nums = line.split(":")
+        swords.append(Spine.from_list(list(map(int, nums.split(",")))).quality())
 
-        return best_sword - worst_sword
+    best_sword = max(swords)
+    worst_sword = min(swords)
 
-    @staticmethod
-    def part3():
-        data = get_item(test(5, 3))
-        swords = {}
-        for line in data:
-            i, nums = line.split(":")
-            swords[int(i)] = Spine.from_list(list(map(int, nums.split(","))))
-        swords = dict(
-            sorted(
-                swords.items(),
-                key=lambda item: (item[1], item[0]),
-                reverse=True,
-            )
+    return best_sword - worst_sword
+
+
+def part3(note: list[str]):
+    swords = {}
+    for line in note:
+        i, nums = line.split(":")
+        swords[int(i)] = Spine.from_list(list(map(int, nums.split(","))))
+    swords = dict(
+        sorted(
+            swords.items(),
+            key=lambda item: (item[1], item[0]),
+            reverse=True,
         )
+    )
 
-        return sum([p * i for p, i in enumerate(swords.keys(), start=1)])
+    return sum([p * i for p, i in enumerate(swords.keys(), start=1)])
 
 
 if __name__ == "__main__":
-    Day5.run()
+    print("Part 1:")
+    time_taken(lambda: part1(get_test(1)))
+    print("Part 2:")
+    time_taken(lambda: part2(get_test(2)))
+    print("Part 3:")
+    time_taken(lambda: part3(get_test(3)))
